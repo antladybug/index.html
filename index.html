@@ -1,0 +1,126 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset = "UTF-8">
+		<title>CASLⅡで過去問演習！</title>
+		<link rel = "icon" type = "image/png" href = "./img/icon.png" />
+		<style>
+			* { font-family: "メイリオ", sans-serif; }
+			h1 { border-radius: 10px; background-color: maroon; color: white; padding-left: .5em; padding-top: .25em; }
+			h2 { border-left: solid .3em midnightblue; background-color: lemonchiffon;; padding-left: .5em; padding-top: .25em; }
+			#wrapper { width: 95%; margin: 0 auto; }
+			#main { padding-left: 1em; margin-right: 10%; }
+			.code { border: .05em solid black; width: 70%; padding: 1em; background-color: linen; margin-left: 1em; }
+			p { margin: 0; }
+			.hasen { border-bottom: dashed .1em navy; font-weight: bold; }
+			.PT10 { padding-top:1em; }
+			.MarginL10 { margin-left: 1em; }
+			.MarginT10 { margin-top: 1em; }
+			.MarkerBlue { background:linear-gradient(transparent 75%, blue 75%); }
+			.MarkerYellow { font-weight: bold; background:linear-gradient(transparent 60%, yellow 60%); }
+			.MarkerBurlywood { font-weight: bold; background:linear-gradient(transparent 60%, burlywood 60%); }
+			.balloon { position: relative; display: inline-block; margin: .5em; width: 3em; height: 3em; line-height: 3em; text-align: center; color: #FFF; font-weight: bold; background: red; border-radius: 50%; box-sizing: border-box; }
+			.balloon::before { content: ""; position: absolute; top: 50%; right: -20px; margin-top: -15px; border: 15px solid transparent; border-left: 15px solid red; z-index: 0; }
+			.IMG_MEMORYTOCPU {
+				margin: 1em;
+				background-image: url( "img/Img.png" );
+				background-repeat: no-repeat;
+				height: 355px;
+				width: 390px;
+			}
+			.IMG_CPU {
+				margin: 1em;
+				background-image: url( "img/Img.png" );
+				background-repeat: no-repeat;
+				background-position: -390px -0px;
+				height: 420px;
+				width: 440px;
+			}
+			.IMG_ICHIGO {
+				margin: 1em;
+				background-image: url( "img/Img.png" );
+				background-repeat: no-repeat;
+				background-position: -830px -0px;
+				height: 135px;
+				width: 375px;
+			}
+			.IMG_CODE {
+				margin: 1em;
+				background-image: url( "img/Img.png" );
+				background-repeat: no-repeat;
+				background-position: -1222px -0px;
+				height: 300px;
+				width: 510px;
+			}
+		</style>
+	</head>
+	<body id = "wrapper">
+		<h1>CASL演習</h1>
+		<div id = "main">
+			<p>CASLⅡは、情報処理技術者の試験用に設計された「COMETⅡ（コメット2）」というコンピュータ用のアセンブラ言語です。</p>
+			<p>CPUに用意されている命令も少なく、<span class = "MarkerYellow">現実に用いられるコンピュータに比べて大変簡略な構造のため、「アセンブラ言語の勉強に最適」なコンピュータ</span>といえます。</p>
+		</div>
+		<div id = "main" class = "PT10">
+			<p>COMETⅡは、メモリバスを介してメモリとCPU間で転送を行いながら、命令を実行します。</p>
+			<p>メモリにはデータとプログラムが格納されます(=プログラム内蔵方式)。</p>
+			<div class = "IMG_MEMORYTOCPU"></div>
+		</div>
+		<div id = "main">
+			<p>演算、つまり計算は全てCPUで行い、<span class = "MarkerYellow">計算の過程で必要なデータはメモリからCPUへ転送</span>されます。</p>
+		</div>
+		<div id = "main" class = "PT10">
+			<p>CASLⅡのCPUは次のような構成で成り立っています。</p>
+			<div class = "IMG_CPU"></div>
+			<p>コンピュータの計算のさまざまな状態を表すのが『<span class = "hasen">フラグレジスタ(FR)</span>』『<span class = "hasen">プログラムレジスタ(PR)</span>』『<span class = "hasen">スタックポインタ(SP)</span>』です。</p>
+			<ul>
+				<li>FRは、演算結果の状態を保持します。</li>
+				<li>PRは、次にプログラムが実行する番地を保持します。</li>
+				<li>SPは、スタック領域の取り出し位置(LIFO：Last-In First-Out：後入れ先出しの記憶領域)を保持します。</li>
+			</ul>
+			<p>『<span class = "hasen">汎用レジスタ(GR：General Register)</span>』は、演算やアドレスの修飾のために利用します。CASLⅡでは、0～7個あります。</p>
+			<table class = "MarginL10 MarginT10">
+				<tr>
+					<td class="balloon">!</td>
+					<td>
+						<p>計算自体は演算装置が行いますが、<span class = "MarkerBurlywood">計算をするためのデータや計算途中の値は、汎用レジスタに格納されている必要があります</span>。</p>
+						<p>例えば、メモリに格納されたデータ同士を足した結果をメモリの所定の場所に格納するといったことは、できません。</p>
+					</td>
+				</tr>
+			</table>
+			<div class = "MarginT10">CASLⅡの1語は、16ビットで構成されます。</div>
+			<div class = "IMG_ICHIGO"></div>
+			<div class = "MarginT10">次に、CASLⅡの命令をまとめます。</div>
+			<div>命令は、<span class = "hasen">「アセンブラ命令」</span><span class = "hasen">「マクロ命令」</span><span class = "hasen">「機械語命令」</span>に分けられます。</div>
+			<ul>
+				<li>アセンブラ命令は「START」「END」「DC」「DS」の4種。例)プログラムの先頭を指示するstart命令</li>
+				<li>マクロ命令は「IN」「OUT」「RPUSH」「RPOP」の4種。</li>
+				<li>機械語命令は、上を除く28種類。</li>
+			</ul>
+			<div class = "MarginT10">次のようにSTART命令とRET命令の間に実処理を、RET命令とEND命令の間に、定義または領域を記述します。</div>
+			<div class = "IMG_CODE"></div>
+			<ul>
+				<li>START命令は、<span class = "MarkerBlue">プログラムの先頭</span>であり、<span class = "MarkerYellow">処理が開始される場所</span>を示します。</li>
+				<li>RET命令は、<span class = "MarkerYellow">処理が終了される場所</span>を示します。</li>
+				<li>END命令は、<span class = "MarkerBlue">プログラムの末尾</span>を示します。</li>
+				<li>ラベルは、<span class = "MarkerBurlywood">アドレスに付ける名前</span>を示します。命令の種類によって省略可能です。</li>
+			</ul>
+			<h2>演習一覧</h2>
+			<div class = "MarginL10">
+				<div class = "MarginT10">ここからは、シミュレータで実装しながら動作をみていきましょう。</div>
+				<ul>
+					<li>シミュレータのリンク①：<a href = "https://www.officedaytime.com/dcaslj/" target = "_blank">https://www.officedaytime.com/dcaslj/</a></li>
+					<li>シミュレータのリンク②：<a href = "https://www.chiba-fjb.ac.jp/fjb_labo/casl/casl2.cgi" target = "_blank">https://www.chiba-fjb.ac.jp/fjb_labo/casl/casl2.cgi</a></li>
+				</ul>
+				<p id = "mondai">問題一覧です。</p>
+				<ul>
+					<li><a href = "pages/Building.html#1">[設問1]DC命令とDS命令</a></li>
+					<li><a href = "pages/Building.html#2">[設問2]DC命令の使用例</a></li>
+					<li><a href = "pages/Building.html#3">[設問3]LD命令</a></li>
+					<li><a href = "pages/Building.html#4">[設問4]ST命令</a></li>
+					<li><a href = "pages/Building.html#5">[設問5]LAD命令</a></li>
+					<li><a href = "pages/Practice.html">[演習問題]やれる人は自力でやってみよう！</a></li>
+				</ul>
+			</div>
+		</div>
+	</body>
+</html>
